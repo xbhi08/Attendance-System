@@ -1,0 +1,120 @@
+A. ENV class
+   Class that contains static variables that are used to store the database connection
+   information.
+
+-------------------------------------------------------------------------------------------------------------------
+
+B. Auth class
+   Class that handles the user authentication.
+
+   == Attributes ==
+   1. String userType -> admin, student, faculty.
+   2. String errorMessage -> any error produced.
+   3. String userName
+   4. String userEmail
+   5. String userContactNum
+   6. String userAddress
+   7. String userGender
+
+   == Constructor ==
+   Auth authObject = new Auth(String type)
+
+        Parameter:
+        1. String type -> admin, student, faculty.
+
+   == Methods ==
+    1. Auth.login()
+        function that authenticates user by checks if user records is the database.
+
+        Parameter:
+        1. String id -> the user id.
+        2. String password -> user entered password.
+
+        RETURN: Boolean value -> whether user is authenticated or not.
+        
+
+    2. Auth.logout()
+        function that deletes current login session and return to login screen.
+
+
+    3. Auth.getAuthError()
+        This function returns the error message that is set when the user is not authenticated.
+
+        RETURN: String errorMessage
+
+-------------------------------------------------------------------------------------------------------------------
+
+3. Admin class
+   Class that handles admin functions.
+   Extends Auth class.
+
+   == Constructor ==
+   Admin adminObject = new Admin()
+
+   == Methods ==
+    1. Admin.registerUser()
+        function that inserts new records in database for table faculty/student.
+
+        Parameter:
+        1. String userType -> admin, student, faculty.
+        2. int id
+        3. String password
+        4. String name
+        5. String email
+        6. String address
+        7. String contactNum
+        8. String gender
+
+        RETURN: Boolean value -> true if record was successfully inserted.
+
+    
+    2. Admin.addNewClass()
+        function that inserts new records in database for table class.
+
+        Parameter:
+        1. String id -> new class id
+        2. String name -> class name 
+        3. String facultyId -> faculty id
+
+        RETURN: Boolean value -> true if record was successfully inserted.
+
+
+    3. Admin.searchStudByName()
+        function that searches for a records which a specific name in table student.
+
+        Parameter:
+        1. String studentName -> name of student to be searched.
+        2. DataHandler dataHandler -> a callback that takes ResultSet as parameter  
+
+
+    4. Admin.viewStudInfoByClass()
+        function that searches for all students in database that are enrolled in a class with specific id.
+
+        Parameter:
+        1. String id -> id of class.
+        2. DataHandler dataHandler -> a callback that takes ResultSet as parameter 
+   
+-------------------------------------------------------------------------------------------------------------------
+
+4. Helper class
+   Class that handles helper functions(functions that will be used in different files).
+   
+   == Methods ==
+    1. Helper.generatePassword()
+        function that generates a password.
+
+        Parameter:
+        1. int passwordLength -> the length of the password.
+
+        RETURN: String password -> generated password.
+
+
+    2. Helper.generateNewId()
+        function that searches for the next available ID number and return defaultId if
+        db table <tableName> is empty.
+
+        Parameter:
+        1. String tableName -> name of table to search for next available id 
+        2. int defaultId -> default id if database table is empty
+
+        RETURN: int nextId -> next available id.
